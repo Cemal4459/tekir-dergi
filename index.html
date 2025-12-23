@@ -3,102 +3,129 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEKİR — Sayı 1 (Oku)</title>
+  <title>TEKİR — Dijital Dergi</title>
+  <meta name="description" content="TEKİR — Farklılıkların ortak noktada buluştuğu dergi. Sağlık, Kültür ve Spor Direktörlüğü." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body class="reader-body">
+<body>
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-        <a class="back" href="index.html">← Anasayfa</a>
-        <div class="logo small">TEKİR</div>
+        <div class="logo">TEKİR</div>
+        <div class="brand-sub">Farklılıkların ortak noktada buluştuğu dergi</div>
       </div>
+
       <nav class="nav">
+        <a href="#hakkinda">Hakkında</a>
+        <a href="#sayilar">Sayılar</a>
+        <a href="#iletisim">İletişim</a>
         <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
       </nav>
     </div>
   </header>
 
-  <main class="reader">
-    <div class="container">
-      <div class="reader-head">
-        <div>
-          <h1 class="reader-title">Sayı 1</h1>
-          <p class="muted">Ekim – Kasım</p>
+  <main class="hero">
+    <div class="container hero-grid">
+      <section class="card preview">
+        <div class="card-title">SON SAYI</div>
+        <div class="card-big">Sayı 1</div>
+        <div class="card-small muted">Ekim – Kasım</div>
+
+        <div class="hero-actions">
+          <a class="btn big" href="issue.html">Dergiyi Oku</a>
+          <a class="btn ghost big" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF İndir</a>
         </div>
 
-        <div class="controls">
-          <button class="btn ghost" id="prevBtn" title="Önceki (←)">←</button>
-
-          <div class="pagebox" title="Sayfa numarası yazıp Enter">
-            <input id="pageInput" inputmode="numeric" placeholder="Sayfa" />
-            <span class="muted" id="pageTotal">/ ?</span>
-          </div>
-
-          <button class="btn ghost" id="nextBtn" title="Sonraki (→)">→</button>
+        <div class="badges">
+          <span class="badge">PDF Okuyucu</span>
+          <span class="badge">Arama + İçindekiler</span>
+          <span class="badge">Mobil Uyumlu</span>
         </div>
-      </div>
 
-      <div class="reader-grid">
-        <!-- SOL: PDF -->
-        <section class="canvas-wrap">
-          <div class="canvas-top">
-            <div class="muted tiny">Klavye: ← → • Yakınlaştır: Ctrl + / Ctrl -</div>
-            <div class="zoom">
-              <button class="btn ghost" id="zoomOut" title="Uzaklaştır">−</button>
-              <span class="badge" id="zoomLabel">100%</span>
-              <button class="btn ghost" id="zoomIn" title="Yakınlaştır">+</button>
-            </div>
-          </div>
+        <p class="lead" style="margin-top:14px">
+          TEKİR, Sağlık, Kültür ve Spor Direktörlüğü bünyesinde; kültür, etkinlik ve topluluk içeriklerini bir araya getirir.
+        </p>
 
-          <div class="canvas-card">
-            <canvas id="pdfCanvas"></canvas>
-            <div id="loading" class="loading">Yükleniyor…</div>
-          </div>
-        </section>
+        <div class="hint">Not: “Dergiyi Oku” sayfasında sayfa çevirme, zoom ve arama var.</div>
+      </section>
 
-        <!-- SAĞ: Sidebar -->
-        <aside class="sidebar">
-          <!-- İçindekiler -->
-          <div class="mini-card">
-            <h3>İçindekiler</h3>
-            <div id="toc" class="toc muted">Yükleniyor…</div>
-            <p class="muted tiny">Bir başlığa tıkla → direkt o sayfaya gider.</p>
-          </div>
-
-          <!-- Arama -->
-          <div class="mini-card">
-            <h3>Arama</h3>
-            <div class="searchrow">
-              <input id="searchInput" placeholder="PDF içinde ara (örn: kütüphane)" />
-              <button class="btn" id="searchBtn">Ara</button>
-            </div>
-            <p class="muted tiny">Not: PDF metin içeriyorsa en iyi sonuç.</p>
-          </div>
-
-          <!-- Sonuçlar -->
-          <div class="mini-card">
-            <h3>Sonuçlar</h3>
-            <div id="results" class="results muted">Henüz arama yapılmadı.</div>
-          </div>
-
-          <!-- Hızlı Git -->
-          <div class="mini-card">
-            <h3>Hızlı Git</h3>
-            <div class="quick">
-              <button class="chip" data-go="1">Kapak</button>
-              <button class="chip" data-go="2">İçindekiler</button>
-              <button class="chip" data-go="3">Başla</button>
-            </div>
-            <p class="muted tiny">Butonlar örnek; sayfa numaralarını derginize göre düzenleyin.</p>
-          </div>
-        </aside>
-      </div>
+      <aside class="card preview" style="padding:18px">
+        <div class="card-title">HIZLI BAĞLANTILAR</div>
+        <div class="grid2" style="margin-top:12px">
+          <a class="mini-card" href="issue.html" style="text-decoration:none">
+            <h3 style="margin:0 0 6px">Okuyucu</h3>
+            <p class="muted">Sayfa çevir, arama yap, içindekilerden git.</p>
+          </a>
+          <a class="mini-card" href="dergi/sayi-1.pdf" target="_blank" rel="noopener" style="text-decoration:none">
+            <h3 style="margin:0 0 6px">PDF</h3>
+            <p class="muted">Direkt PDF’yi yeni sekmede aç.</p>
+          </a>
+        </div>
+      </aside>
     </div>
   </main>
 
-  <!-- Yerel PDF.js (repo içinde olmalı) -->
-  <script src="assets/pdf.min.js"></script>
-  <script src="assets/app.js"></script>
+  <section id="hakkinda" class="section">
+    <div class="container">
+      <h2>Hakkında</h2>
+      <div class="grid3">
+        <div class="mini-card">
+          <h3>Amaç</h3>
+          <p class="muted">Kulüp/komünite ruhunu güçlendiren içerikler, etkinlikler ve öneriler.</p>
+        </div>
+        <div class="mini-card">
+          <h3>İçerik</h3>
+          <p class="muted">Röportajlar, kitap önerileri, duyurular, etkinlikler ve daha fazlası.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Yayın</h3>
+          <p class="muted">Dijital dergi formatında — web okuyucu ve PDF seçenekleriyle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sayilar" class="section">
+    <div class="container">
+      <h2>Sayılar</h2>
+      <div class="grid2">
+        <div class="mini-card">
+          <h3>Sayı 1 — Ekim/Kasım</h3>
+          <p class="muted">Okuyucu ile gez / PDF olarak indir.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+            <a class="btn" href="issue.html">Oku</a>
+            <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h3>Yakında</h3>
+          <p class="muted">Sayı 2 geldiğinde buraya ekleriz (sayi-2.pdf).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="iletisim" class="section">
+    <div class="container">
+      <h2>İletişim</h2>
+      <div class="grid2">
+        <div class="mini-card">
+          <h3>Mail</h3>
+          <p class="muted">İstersen Formspree ile “mail düşen” form ekleyebiliriz.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Sosyal</h3>
+          <p class="muted">Instagram / kulüp linkleri / okul sayfası buraya.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container muted tiny">
+      © TEKİR — Sağlık, Kültür ve Spor Direktörlüğü
+    </div>
+  </footer>
 </body>
 </html>
