@@ -7,8 +7,9 @@
   <meta name="description" content="TEKİR — Farklılıkların ortak noktada buluştuğu dergi. Sağlık, Kültür ve Spor Direktörlüğü." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body>
-  <header class="topbar">
+
+<body class="home-v2">
+  <header class="topbar topbar-v2">
     <div class="container topbar-inner">
       <div class="brand">
         <div class="logo">TEKİR</div>
@@ -16,132 +17,81 @@
       </div>
 
       <nav class="nav">
-        <a href="#hakkinda">Hakkında</a>
         <a href="#sayilar">Sayılar</a>
-        <a href="#iletisim">İletişim</a>
+        <a href="#hakkinda">Hakkında</a>
+        <a href="#kulup">Kulüp</a>
         <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
       </nav>
     </div>
   </header>
 
-  <!-- ✅ CANVA TASARIMLARI (BURASI EKLENDİ) -->
-  <main class="home">
-    <section class="canva-hero container">
-      <img src="assets/images/hero-tekir.png" alt="TEKİR Dergi - Kapak" class="canva-img">
-    </section>
+  <!-- HERO (Canva banner + overlay) -->
+  <main class="main">
+    <section class="hero2">
+      <div class="container hero2-inner">
+        <div class="hero2-media" aria-hidden="true">
+          <img src="assets/images/hero-tekir.png" alt="">
+          <div class="hero2-shade"></div>
+        </div>
 
-    <section class="canva-hero container">
-      <img src="assets/images/hero-yazi.png" alt="TEKİR Dergi - Tanıtım" class="canva-img">
-    </section>
+        <div class="hero2-content">
+          <div class="kicker">İstanbul Kent Üniversitesi • Kütüphanecilik Kulübü</div>
+          <h1 class="hero2-title">TEKİR Dergi</h1>
+          <p class="hero2-sub">2025–2026 • Sayı 1 (Ekim–Kasım)</p>
 
-    <section class="canva-hero container">
-      <img src="assets/images/kulup-bilgi.png" alt="Kütüphanecilik Kulübü - Bilgi" class="canva-img">
-    </section>
-
-    <!-- ✅ ESKİ İÇERİKLERİN (AYNEN KALDI) -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <section class="card preview">
-          <div class="card-title">SON SAYI</div>
-          <div class="card-big">Sayı 1</div>
-          <div class="card-small muted">Ekim – Kasım</div>
-
-          <div class="hero-actions">
+          <div class="hero2-actions">
             <a class="btn big" href="issue.html">Dergiyi Oku</a>
-            <a class="btn ghost big" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF İndir</a>
+            <a class="btn ghost big" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
           </div>
 
-          <div class="badges">
-            <span class="badge">PDF Okuyucu</span>
-            <span class="badge">Arama + İçindekiler</span>
-            <span class="badge">Mobil Uyumlu</span>
-          </div>
-
-          <p class="lead" style="margin-top:14px">
-            TEKİR, Sağlık, Kültür ve Spor Direktörlüğü bünyesinde; kültür, etkinlik ve topluluk içeriklerini bir araya getirir.
-          </p>
-
-          <div class="hint">Not: “Dergiyi Oku” sayfasında sayfa çevirme, zoom ve arama var.</div>
-        </section>
-
-        <aside class="card preview" style="padding:18px">
-          <div class="card-title">HIZLI BAĞLANTILAR</div>
-          <div class="grid2" style="margin-top:12px">
-            <a class="mini-card" href="issue.html" style="text-decoration:none">
-              <h3 style="margin:0 0 6px">Okuyucu</h3>
-              <p class="muted">Sayfa çevir, arama yap, içindekilerden git.</p>
-            </a>
-            <a class="mini-card" href="dergi/sayi-1.pdf" target="_blank" rel="noopener" style="text-decoration:none">
-              <h3 style="margin:0 0 6px">PDF</h3>
-              <p class="muted">Direkt PDF’yi yeni sekmede aç.</p>
-            </a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="hakkinda" class="section">
-      <div class="container">
-        <h2>Hakkında</h2>
-        <div class="grid3">
-          <div class="mini-card">
-            <h3>Amaç</h3>
-            <p class="muted">Kulüp/komünite ruhunu güçlendiren içerikler, etkinlikler ve öneriler.</p>
-          </div>
-          <div class="mini-card">
-            <h3>İçerik</h3>
-            <p class="muted">Röportajlar, kitap önerileri, duyurular, etkinlikler ve daha fazlası.</p>
-          </div>
-          <div class="mini-card">
-            <h3>Yayın</h3>
-            <p class="muted">Dijital dergi formatında — web okuyucu ve PDF seçenekleriyle.</p>
+          <div class="hero2-badges">
+            <span class="badge">Sayfa çevirme</span>
+            <span class="badge">İçindekiler</span>
+            <span class="badge">Arama</span>
+            <span class="badge">Mobil uyumlu</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="sayilar" class="section">
+    <!-- PROMO STRIP (2 görseli yan yana daha premium) -->
+    <section class="container promo2" id="kulup">
+      <div class="promo2-card">
+        <img src="assets/images/hero-yazi.png" alt="TEKİR tanıtım" class="promo2-img">
+      </div>
+      <div class="promo2-card">
+        <img src="assets/images/kulup-bilgi.png" alt="Kulüp bilgisi" class="promo2-img">
+      </div>
+    </section>
+
+    <!-- SAYILAR -->
+    <section class="section2" id="sayilar">
       <div class="container">
-        <h2>Sayılar</h2>
-        <div class="grid2">
-          <div class="mini-card">
-            <h3>Sayı 1 — Ekim/Kasım</h3>
-            <p class="muted">Okuyucu ile gez / PDF olarak indir.</p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+        <div class="section2-head">
+          <h2>Sayılar</h2>
+          <p class="muted">Yeni sayılar geldikçe arşiv büyüyecek.</p>
+        </div>
+
+        <div class="issues-grid">
+          <article class="issue-card">
+            <div class="issue-top">
+              <div>
+                <div class="issue-kicker">SON SAYI</div>
+                <div class="issue-title">Sayı 1</div>
+                <div class="muted tiny">Ekim – Kasım</div>
+              </div>
+              <span class="badge">2025–2026</span>
+            </div>
+
+            <div class="issue-actions">
               <a class="btn" href="issue.html">Oku</a>
               <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
             </div>
-          </div>
 
-          <div class="mini-card">
-            <h3>Yakında</h3>
-            <p class="muted">Sayı 2 geldiğinde buraya ekleriz (sayi-2.pdf).</p>
-          </div>
-        </div>
-      </div>
-    </section>
+            <div class="issue-foot muted tiny">
+              TEKİR, kültür–edebiyat–sosyal farkındalık içeriklerini bir araya getirir.
+            </div>
+          </article>
 
-    <section id="iletisim" class="section">
-      <div class="container">
-        <h2>İletişim</h2>
-        <div class="grid2">
-          <div class="mini-card">
-            <h3>Mail</h3>
-            <p class="muted">İstersen Formspree ile “mail düşen” form ekleyebiliriz.</p>
-          </div>
-          <div class="mini-card">
-            <h3>Sosyal</h3>
-            <p class="muted">Instagram / kulüp linkleri / okul sayfası buraya.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container muted tiny">
-        © TEKİR — Sağlık, Kültür ve Spor Direktörlüğü
-      </div>
-    </footer>
-  </main>
-</body>
-</html>
+          <article class="issue-card ghost-card">
+            <div
