@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEKİR — Kütüphanecilik Kulübü</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo">TEKİR</div>
+        <div class="brand-sub">Kütüphanecilik Kulübü Dijital Dergisi</div>
+      </div>
+      <nav class="nav">
+        <a href="#hakkimizda">Hakkımızda</a>
+        <a href="#iletisim">İletişim</a>
+        <a class="btn" href="issue.html">Dergiyi Oku</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>Farklılıkların ortak noktada buluştuğu dergi</h1>
+          <p class="lead">
+            Sağlık, Kültür ve Spor Direktörlüğü destekleriyle; kampüs yaşamı, kültür, sanat ve kütüphane dünyasından
+            seçkiler sunuyoruz.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn big" href="issue.html">Sayı 1’i Oku (Ekim–Kasım)</a>
+            <a class="btn ghost big" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF’i Aç</a>
+          </div>
+
+          <div class="badges">
+            <span class="badge">Sayı 1</span>
+            <span class="badge">Ekim – Kasım</span>
+            <span class="badge">Kulüp Projesi</span>
+          </div>
+        </div>
+
+        <div class="card preview">
+          <div class="card-title">Son Sayı</div>
+          <div class="card-big">TEKİR — Sayı 1</div>
+          <div class="card-small">Ekim – Kasım</div>
+          <div class="card-actions">
+            <a class="btn" href="issue.html">Oku</a>
+            <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
+          </div>
+          <div class="hint">İçeride sayfa çevirme + arama var.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hakkimizda" class="section">
+      <div class="container">
+        <h2>Kulübümüz</h2>
+        <p>
+          Kütüphanecilik kulübü olarak öğrenciler için üretmeyi, paylaşmayı ve öğrenmeyi seviyoruz.
+          TEKİR dergisi; yazılar, röportajlar, etkinlikler, öneriler ve kulüp çalışmalarını bir araya getirir.
+        </p>
+
+        <div class="grid3">
+          <div class="mini-card">
+            <h3>İçerik</h3>
+            <p>Kültür, sanat, kampüs etkinlikleri, kitap önerileri ve kulüp gündemi.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Gönüllülük</h3>
+            <p>Yazar/çizer/ekip olmak istersen bize ulaş, birlikte üretelim.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Dijital</h3>
+            <p>PDF yerine sayfa çevirerek okuma + arama deneyimi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="iletisim" class="section">
+      <div class="container">
+        <h2>İletişim</h2>
+        <p class="muted">Burayı kulübünüzün gerçek bilgileriyle dolduracağız.</p>
+
+        <div class="grid2">
+          <div class="mini-card">
+            <h3>E-posta</h3>
+            <p><a href="mailto:kulup@okul.edu.tr">kulup@okul.edu.tr</a></p>
+            <h3>Instagram</h3>
+            <p><a href="#" target="_blank" rel="noopener">@tekirdergi</a></p>
+          </div>
+
+          <form class="mini-card form" onsubmit="return false;">
+            <h3>Hızlı Mesaj</h3>
+            <label>Ad Soyad</label>
+            <input placeholder="Adınız" />
+            <label>Mesaj</label>
+            <textarea rows="4" placeholder="Mesajınız"></textarea>
+            <button class="btn" type="button" title="Demo">Gönder (demo)</button>
+            <p class="muted tiny">İstersen bunu Formspree ile gerçekten gönderir hale getiririz.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="y"></span> TEKİR • Kütüphanecilik Kulübü</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
