@@ -145,7 +145,7 @@
 
   async function init(){
     setLoading(true);
-    const loadingTask = pdfjsLib.getDocument(url);
+    const loadingTask = pdfjsLib.getDocument({ url, disableWorker: true });
     pdfDoc = await loadingTask.promise;
 
     pageTotal.textContent = `/ ${pdfDoc.numPages}`;
