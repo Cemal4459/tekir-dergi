@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TEKİR — Sayı 1 (Oku)</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="reader-body">
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <a class="back" href="index.html">← Anasayfa</a>
+        <div class="logo small">TEKİR</div>
+      </div>
+      <nav class="nav">
+        <a class="btn ghost" href="dergi/sayi-1.pdf" target="_blank" rel="noopener">PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="reader">
+    <div class="container">
+      <div class="reader-head">
+        <div>
+          <h1 class="reader-title">Sayı 1</h1>
+          <p class="muted">Ekim – Kasım</p>
+        </div>
+
+        <div class="controls">
+          <button class="btn ghost" id="prevBtn">←</button>
+          <div class="pagebox">
+            <input id="pageInput" inputmode="numeric" placeholder="Sayfa" />
+            <span class="muted" id="pageTotal">/ ?</span>
+          </div>
+          <button class="btn ghost" id="nextBtn">→</button>
+        </div>
+      </div>
+
+      <div class="reader-grid">
+        <section class="canvas-wrap">
+          <div class="canvas-top">
+            <div class="muted tiny">Klavye: ← → • Yakınlaştır: Ctrl + / Ctrl -</div>
+            <div class="zoom">
+              <button class="btn ghost" id="zoomOut">−</button>
+              <span class="badge" id="zoomLabel">100%</span>
+              <button class="btn ghost" id="zoomIn">+</button>
+            </div>
+          </div>
+
+          <div class="canvas-card">
+            <canvas id="pdfCanvas"></canvas>
+            <div id="loading" class="loading">Yükleniyor…</div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <div class="mini-card">
+            <h3>Arama</h3>
+            <div class="searchrow">
+              <input id="searchInput" placeholder="PDF içinde ara (örn: kütüphane)" />
+              <button class="btn" id="searchBtn">Ara</button>
+            </div>
+            <p class="muted tiny">Not: PDF metin içeriyorsa en iyi sonuç.</p>
+          </div>
+
+          <div class="mini-card">
+            <h3>Sonuçlar</h3>
+            <div id="results" class="results muted">Henüz arama yapılmadı.</div>
+          </div>
+
+          <div class="mini-card">
+            <h3>Hızlı Git</h3>
+            <div class="quick">
+              <button class="chip" data-go="1">Kapak</button>
+              <button class="chip" data-go="2">İçindekiler</button>
+              <button class="chip" data-go="3">Başla</button>
+            </div>
+            <p class="muted tiny">Butonlar örnek; sayfa numaralarını size göre düzenleriz.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- PDF.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
