@@ -25,7 +25,7 @@
   let rendering = false;
   let pendingPage = null;
 
- pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
 
   function setLoading(on){
     if(!loadingEl) return;
