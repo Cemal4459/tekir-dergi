@@ -1,7 +1,21 @@
 /* global pdfjsLib */
 (() => {
+  // PDF yolu (doğru)
   const url = "dergi/sayi-1.pdf";
 
+  // === İÇİNDEKİLER (TOC) ===
+  // BURADAKİ SAYFA NUMARALARINI DERGİNİZE GÖRE DÜZENLE
+  const TOC = [
+    { title: "Kapak", page: 1 },
+    { title: "İçindekiler", page: 2 },
+    { title: "Editörden", page: 3 },
+    { title: "Röportaj", page: 5 },
+    { title: "Etkinlikler", page: 8 },
+    { title: "Kitap Önerileri", page: 11 },
+    { title: "Kulüp Duyuruları", page: 14 },
+  ];
+
+  // Elements
   const canvas = document.getElementById("pdfCanvas");
   const ctx = canvas.getContext("2d");
   const loadingEl = document.getElementById("loading");
@@ -19,30 +33,57 @@
   const searchBtn = document.getElementById("searchBtn");
   const resultsEl = document.getElementById("results");
 
+  const tocEl = document.getElementById("toc");
+
   let pdfDoc = null;
   let pageNum = 1;
   let scale = 1.2; // başlangıç zoom
   let rendering = false;
   let pendingPage = null;
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
+  // Worker'ı yerelden kullan
+  // assets/pdf.worker.min.js dosyası repo içinde olmalı
+  try {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
+  } catch (e) {
+    // pdfjsLib yoksa zaten hata alır; console'dan bakarsın
+    console.error("pdfjsLib worker ayarlanamadı:", e);
+  }
 
-  function setLoading(on){
-    if(!loadingEl) return;
+  function setLoading(on) {
+    if (!loadingEl) return;
     loadingEl.style.display = on ? "flex" : "none";
   }
 
-  async function renderPage(num){
+  function clamp(n, min, max) {
+    return Math.max(min, Math.min(max, n));
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    }[c]));
+  }
+
+  async function renderPage(num) {
     rendering = true;
     setLoading(true);
 
     const page = await pdfDoc.getPage(num);
 
-    // Ekran genişliğine göre scale düzelt (responsive)
+    // Responsive fit: canvas parent genişliğine göre ölçekle
     const viewport0 = page.getViewport({ scale: 1 });
-    const containerWidth = canvas.parentElement.clientWidth - 20;
+    const parent = canvas.parentElement;
+    const containerWidth = Math.max(320, (parent?.clientWidth || 800) - 20);
     const fitScale = containerWidth / viewport0.width;
-    const viewport = page.getViewport({ scale: Math.max(0.6, fitScale) * scale });
+
+    const viewport = page.getViewport({
+      scale: Math.max(0.6, fitScale) * scale,
+    });
 
     canvas.width = Math.floor(viewport.width);
     canvas.height = Math.floor(viewport.height);
@@ -57,34 +98,54 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
     pageTotal.textContent = `/ ${pdfDoc.numPages}`;
     zoomLabel.textContent = `${Math.round(scale * 100)}%`;
 
-    if (pendingPage !== null){
+    if (pendingPage !== null) {
       const p = pendingPage;
       pendingPage = null;
       renderPage(p);
     }
   }
 
-  function queueRender(num){
+  function queueRender(num) {
     if (rendering) pendingPage = num;
     else renderPage(num);
   }
 
-  function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-  function goTo(num){
+  function goTo(num) {
     if (!pdfDoc) return;
     pageNum = clamp(num, 1, pdfDoc.numPages);
     queueRender(pageNum);
   }
 
-  function next(){ goTo(pageNum + 1); }
-  function prev(){ goTo(pageNum - 1); }
+  function next() {
+    goTo(pageNum + 1);
+  }
 
-  // Arama: her sayfanın textContent'ini tarar, eşleşenleri listeler
-  async function searchPdf(q){
-    if(!pdfDoc) return;
+  function prev() {
+    goTo(pageNum - 1);
+  }
+
+  function renderTOC() {
+    if (!tocEl) return;
+
+    tocEl.innerHTML = "";
+    TOC.forEach((item) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "toc-item";
+      btn.innerHTML = `
+        <span class="toc-title">${escapeHtml(item.title)}</span>
+        <span class="toc-page">s.${item.page}</span>
+      `;
+      btn.addEventListener("click", () => goTo(item.page));
+      tocEl.appendChild(btn);
+    });
+  }
+
+  async function searchPdf(q) {
+    if (!pdfDoc) return;
+
     const query = (q || "").trim().toLowerCase();
-    if(!query){
+    if (!query) {
       resultsEl.textContent = "Aramak için bir şey yaz.";
       return;
     }
@@ -92,13 +153,12 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
     resultsEl.textContent = "Aranıyor… (PDF uzun ise biraz sürebilir)";
     const hits = [];
 
-    for (let i = 1; i <= pdfDoc.numPages; i++){
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
       const page = await pdfDoc.getPage(i);
       const text = await page.getTextContent();
-      const str = text.items.map(it => it.str).join(" ").toLowerCase();
+      const str = text.items.map((it) => it.str).join(" ").toLowerCase();
 
-      if (str.includes(query)){
-        // küçük bir snippet üret
+      if (str.includes(query)) {
         const idx = str.indexOf(query);
         const start = Math.max(0, idx - 35);
         const end = Math.min(str.length, idx + query.length + 60);
@@ -107,13 +167,13 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
       }
     }
 
-    if(!hits.length){
+    if (!hits.length) {
       resultsEl.textContent = "Sonuç bulunamadı.";
       return;
     }
 
     resultsEl.innerHTML = "";
-    hits.slice(0, 40).forEach(h => {
+    hits.slice(0, 50).forEach((h) => {
       const div = document.createElement("div");
       div.className = "result";
       div.innerHTML = `
@@ -128,26 +188,37 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
       resultsEl.appendChild(div);
     });
 
-    if(hits.length > 40){
+    if (hits.length > 50) {
       const more = document.createElement("div");
       more.className = "muted tiny";
-      more.textContent = `+ ${hits.length - 40} sonuç daha var (istersen “daha fazla” yaparız).`;
+      more.textContent = `+ ${hits.length - 50} sonuç daha var (istersen “daha fazla” yaparız).`;
       resultsEl.appendChild(more);
     }
   }
 
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"']/g, c => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-    }[c]));
-  }
-
-  async function init(){
+  async function init() {
     setLoading(true);
-    const loadingTask = pdfjsLib.getDocument({ url, disableWorker: true });
+
+    // pdfjsLib var mı kontrol
+    if (!window.pdfjsLib) {
+      console.error("pdfjsLib bulunamadı. assets/pdf.min.js doğru yüklenmiş mi?");
+      if (resultsEl) resultsEl.textContent = "PDF motoru yüklenemedi (pdf.min.js).";
+      setLoading(false);
+      return;
+    }
+
+    // PDF yükle
+    // Worker sorun olursa şunu true yapabilirsin:
+    // disableWorker: true
+    const loadingTask = pdfjsLib.getDocument({ url, disableWorker: false });
     pdfDoc = await loadingTask.promise;
 
     pageTotal.textContent = `/ ${pdfDoc.numPages}`;
+
+    // İçindekiler çiz
+    renderTOC();
+
+    // İlk sayfa
     goTo(1);
 
     // Buttons
@@ -155,14 +226,21 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
     nextBtn?.addEventListener("click", next);
 
     pageInput?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter"){
+      if (e.key === "Enter") {
         const n = parseInt(pageInput.value, 10);
         if (!Number.isNaN(n)) goTo(n);
       }
     });
 
-    zoomIn?.addEventListener("click", () => { scale = clamp(scale + 0.1, 0.6, 2.2); queueRender(pageNum); });
-    zoomOut?.addEventListener("click", () => { scale = clamp(scale - 0.1, 0.6, 2.2); queueRender(pageNum); });
+    zoomIn?.addEventListener("click", () => {
+      scale = clamp(scale + 0.1, 0.6, 2.2);
+      queueRender(pageNum);
+    });
+
+    zoomOut?.addEventListener("click", () => {
+      scale = clamp(scale - 0.1, 0.6, 2.2);
+      queueRender(pageNum);
+    });
 
     // Search
     searchBtn?.addEventListener("click", () => searchPdf(searchInput.value));
@@ -171,28 +249,39 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.worker.min.js";
     });
 
     // Quick go buttons
-    document.querySelectorAll("[data-go]").forEach(btn => {
+    document.querySelectorAll("[data-go]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const n = parseInt(btn.getAttribute("data-go"), 10);
         if (!Number.isNaN(n)) goTo(n);
       });
     });
 
-    // Keyboard arrows
+    // Keyboard arrows + Ctrl zoom
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
-      if (e.key === "+" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); scale = clamp(scale + 0.1, 0.6, 2.2); queueRender(pageNum); }
-      if (e.key === "-" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); scale = clamp(scale - 0.1, 0.6, 2.2); queueRender(pageNum); }
+
+      if ((e.ctrlKey || e.metaKey) && e.key === "+") {
+        e.preventDefault();
+        scale = clamp(scale + 0.1, 0.6, 2.2);
+        queueRender(pageNum);
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === "-") {
+        e.preventDefault();
+        scale = clamp(scale - 0.1, 0.6, 2.2);
+        queueRender(pageNum);
+      }
     });
 
     // Resize → yeniden render
     window.addEventListener("resize", () => queueRender(pageNum));
+
+    setLoading(false);
   }
 
-  init().catch(err => {
-    console.error(err);
-    if (resultsEl) resultsEl.textContent = "PDF yüklenemedi. Konsolu kontrol et.";
+  init().catch((err) => {
+    console.error("PDF açılırken hata:", err);
+    if (resultsEl) resultsEl.textContent = "PDF yüklenemedi. Console (F12) hatasına bak.";
     setLoading(false);
   });
 })();
